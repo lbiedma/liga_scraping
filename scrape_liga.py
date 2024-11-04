@@ -33,23 +33,21 @@ try:
         table_classes = wait.until(EC.presence_of_all_elements_located(("xpath", "//table[contains(@class, 'tabla-estadisticas')]")))
         # get the 2 tables inside
         for idx, table in enumerate(table_classes):
-            table = table_classes[0]
             # get header
-            header = table.find_element("xpath", "//thead")
-            print(header.text)
+            header = table.find_element("tag name", "thead")
             # get body
-            body = table.find_element("xpath", "//tbody")
-                    # Get all rows
-            rows = body.find_elements("xpath", ".//tr")
+            body = table.find_element("tag name", "tbody")
+            # Get all rows
+            rows = body.find_elements("tag name", "tr")
 
             # Initialize lists to store data
             data = []
             headers = []
 
             # Get headers first
-            header_row = header.find_elements("xpath", ".//tr")[1]
+            header_row = header.find_elements("tag name", "tr")[1]
             # get all cells
-            header_cells = header_row.find_elements("xpath", ".//th")
+            header_cells = header_row.find_elements("tag name", "th")
             for cell in header_cells:
                 if "d-none" not in cell.get_attribute("class"):
                     text = cell.get_attribute('textContent') or cell.get_attribute('innerText') or cell.text
@@ -58,7 +56,7 @@ try:
             # Get row data
             for row in rows:
                 row_data = []
-                cells = row.find_elements("xpath", ".//td")
+                cells = row.find_elements("tag name", "td")
                 for cell in cells:
                     if "d-none" not in cell.get_attribute("class"):
                         text = cell.get_attribute('textContent') or cell.get_attribute('innerText') or cell.text
